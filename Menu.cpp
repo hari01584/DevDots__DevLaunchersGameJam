@@ -16,8 +16,11 @@ void Menu::gameloop(){
 }
 
 void Menu::eventHandler(const SDL_Event &event){
-  printf("Yey\n");
-  SDL_SetRenderDrawColor(renderer, utils::RandU(0,255),utils::RandU(0,255),utils::RandU(0,255), 255);
+  int r = utils::RandU(0,255);
+  int g = utils::RandU(0,255);
+  int b = utils::RandU(0,255);
+  SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+  printf("Color %d %d %d\n", r, g, b);
 }
 
 Menu::~Menu(){
