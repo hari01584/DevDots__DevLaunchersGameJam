@@ -18,7 +18,6 @@ SDL_Surface *surface;
 int RandU(int nMin, int nMax)
 {
   int x = nMin + ( rand() % ( nMax - nMin + 1 ) );
-
   return x;
 }
 
