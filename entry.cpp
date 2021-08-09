@@ -4,8 +4,8 @@
 #include <emscripten.h>
 
 #include "SCENE_.h"
-#include "Menu.cpp"
 #include "SceneLayout.cpp"
+#include "Menu.cpp"
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -15,7 +15,7 @@ SceneLayout* current;
 void setScreen(SCENE_ scene){
   delete current;
   if(scene == SCENE_::MAIN){
-    current = new Menu();
+    current = new Menu(window, renderer);
   }
 }
 
@@ -37,20 +37,23 @@ void frame()
           break;
       case SDL_MOUSEBUTTONDOWN:
           // SDL_SetRenderDrawColor(renderer, RandU(0,255),RandU(0,255), RandU(0,255), RandU(0,255));
+          current->eventHandler(event);
           break;
       default:
           break;
       }
+
   }
 
+  current->gameloop();
 }
 
 int main()
 {
     SDL_Init(SDL_INIT_VIDEO);
-    TTF_Init();
+
     SDL_CreateWindowAndRenderer(640, 480, 0, &window, &renderer);
 
-    SceneLayout* current = new Menu();
-    emscripten_set_main_loop(frame, -1, 1);
+    current = new Menu(window, renderer);
+    emscripten_set_main_loop(frame, 0, 1);
 }
