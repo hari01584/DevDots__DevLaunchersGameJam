@@ -11,6 +11,7 @@ SDL_Window *window;
 SDL_Renderer *renderer;
 TTF_Font *font;
 SceneLayout* current;
+Uint32 currentTime;
 
 void setScreen(SCENE_ scene){
   delete current;
@@ -44,8 +45,11 @@ void frame()
       }
 
   }
-
-  current->gameloop();
+  Uint32 oldTime = currentTime;
+  currentTime = SDL_GetTicks();
+  float step = (currentTime - oldTime) / 1000.f;
+  
+  current->gameloop(step);
 }
 
 int main()
@@ -55,5 +59,6 @@ int main()
     SDL_CreateWindowAndRenderer(640, 480, 0, &window, &renderer);
 
     current = new Menu(window, renderer);
+    currentTime = SDL_GetTicks();
     emscripten_set_main_loop(frame, 0, 1);
 }

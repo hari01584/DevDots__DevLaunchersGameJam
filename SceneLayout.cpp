@@ -7,7 +7,7 @@ protected:
   SDL_Window *window;
   SDL_Renderer *renderer;
 public:
-  virtual void gameloop() = 0;
+  virtual void gameloop(float step) = 0;
   virtual void eventHandler(const SDL_Event &event) = 0;
 
   SceneLayout(SDL_Window *window, SDL_Renderer *renderer){

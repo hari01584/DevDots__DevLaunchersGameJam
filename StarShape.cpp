@@ -12,10 +12,11 @@ void transform(int x, int y, int len, double angle, int *tx, int *ty){
   *ty = y + len * sin(degree2radian(angle));
 }
 
-StarShape::StarShape(int x, int y, int innerVerticeRad, int outerVerticeRad, int angleRotation, int np){
+StarShape::StarShape(int x, int y, int innerVerticeRad,float velocity, int outerVerticeRad, int angleRotation, int np){
   StarShape::x = x;
   StarShape::y = y;
   StarShape::innerVerticeRad = innerVerticeRad;
+  StarShape::velocity = velocity;
   if(outerVerticeRad != -1) StarShape::outerVerticeRad = outerVerticeRad;
   else StarShape::outerVerticeRad = 3*innerVerticeRad;
   StarShape::_sides = np; // 5 Pointed default
@@ -23,8 +24,19 @@ StarShape::StarShape(int x, int y, int innerVerticeRad, int outerVerticeRad, int
   int _unitAngle = 360 / StarShape::_sides;
   StarShape::angleRotation = 2 * _unitAngle - 90;
   StarShape::angleRotation += angleRotation;
-  
+
   StarShape::buildStar();
+}
+
+void StarShape::increaseAndBuild(float timeStep) {
+  if(y>=480){
+    velocity = utils::RandU(10,40);
+    y=0;
+  }
+
+  y += timeStep*velocity;
+  angleRotation += 1;
+  buildStar();
 }
 
 void StarShape::buildStar() {
@@ -41,13 +53,11 @@ void StarShape::buildStar() {
     transform(x, y, o, a, &tx, &ty);
     StarShape::_xs[size] = tx;
     StarShape::_ys[size++] = ty;
-    printf("%d %d ", tx, ty);
 
     // Add inner point
     transform(x, y, in, a + (_unitAngle/2), &tx, &ty);
     StarShape::_xs[size] = tx;
     StarShape::_ys[size++] = ty;
-    printf("%d %d\n", tx, ty);
   }
 }
 
