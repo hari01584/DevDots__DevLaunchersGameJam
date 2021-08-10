@@ -38,9 +38,9 @@ void frame()
           break;
       case SDL_MOUSEBUTTONDOWN:
           // SDL_SetRenderDrawColor(renderer, RandU(0,255),RandU(0,255), RandU(0,255), RandU(0,255));
-          current->eventHandler(event);
           break;
       default:
+          current->eventHandler(event);
           break;
       }
 
@@ -48,7 +48,7 @@ void frame()
   Uint32 oldTime = currentTime;
   currentTime = SDL_GetTicks();
   float step = (currentTime - oldTime) / 1000.f;
-  
+
   current->gameloop(step);
 }
 

@@ -18,9 +18,7 @@ Button::Button(Spritesheet* s, SDL_Rect r, void(*c)())
     click = c;
 }
 
-void Button::processEvent(SDL_Event *e) {
-#if defined(WINDOW)
-
+void Button::processEvent(const SDL_Event *e) {
     if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
     {
         int x, y;
@@ -48,32 +46,6 @@ void Button::processEvent(SDL_Event *e) {
     else{
         sprites->select_sprite(0, 0);
     }
-
-#elif defined(ANDROID)
-    if(e->type == SDL_FINGERDOWN || e->type == SDL_FINGERUP){
-        int x = width * e->tfinger.x;
-        int y = height * e->tfinger.y;
-        if (x > Message_rect.x && x < Message_rect.x + Message_rect.w && y>Message_rect.y && y < Message_rect.y + Message_rect.h) {
-            if(e->type == SDL_FINGERDOWN){
-                sprites->select_sprite(0, 1);
-                buttonClick = true;
-                while(SDL_PollEvent(e)); //Clears the buffer
-            }
-            else if (e->type == SDL_FINGERUP && buttonClick) {
-                sprites->select_sprite(0, 0);
-                click();
-                buttonClick = false;
-                while(SDL_PollEvent(e)); //Clears the buffer
-
-            }
-        }
-    }
-    else if(!buttonClick){
-        sprites->select_sprite(0, 0);
-    }
-
-#endif
-
 }
 
 void Button::renderButton(SDL_Surface* surface)
