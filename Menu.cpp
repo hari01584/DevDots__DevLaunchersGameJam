@@ -4,7 +4,10 @@
 #include "Menu.h"
 #include "utils.cpp"
 #include "StarShape.cpp"
+#include "ColorPalette.h"
 #include <vector>
+#include "Spritesheet.cpp"
+#include "Button.cpp"
 
 #include "ColorPalette.h"
 
@@ -12,7 +15,7 @@ std::vector<StarShape*> stars;
 
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You! Click on the player to change color\n");
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_SetRenderDrawColor(renderer, 255,255,255,255);
 
   for(int i=0;i<100;i++){
     stars.push_back(new StarShape(utils::RandU(0,640),utils::RandU(0,480), utils::RandU(1,4), utils::RandU(10,40)));
@@ -20,19 +23,14 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
 }
 
 void Menu::gameloop(float step){
+  SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+
   SDL_RenderClear(renderer);
 
   for(auto itr : stars){
     itr->increaseAndBuild(step);
     itr->drawStars(renderer);
   }
-  //SDL_RenderDrawPoint(renderer, 400, 300);
-  // SDL_RenderSetScale(renderer, 2, 2);
-  //aacircleColor(renderer, 100, 100, 40, ColorPalette::RED);
-  //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  // star->drawStars(renderer);
-  // star2->drawStars(renderer);
-  // star3->drawStars(renderer);
 
   SDL_RenderPresent(renderer);
 }
@@ -46,6 +44,9 @@ void Menu::eventHandler(const SDL_Event &event){
 }
 
 Menu::~Menu(){
+  for(auto itr : stars){
+    delete itr;
+  }
   printf("Menu Closed!!\n");
 }
 

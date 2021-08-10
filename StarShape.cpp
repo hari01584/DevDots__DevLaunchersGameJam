@@ -5,6 +5,7 @@
 
 #include "StarShape.h"
 #include "SDL2_gfxPrimitives.h"
+#include "ColorPalette.h"
 
 // Utility function, not part of StarShape class
 void transform(int x, int y, int len, double angle, int *tx, int *ty){
@@ -62,7 +63,7 @@ void StarShape::buildStar() {
 }
 
 void StarShape::drawStars(SDL_Renderer * renderer){
-  filledPolygonColor(renderer, StarShape::_xs, StarShape::_ys, StarShape::_sides * 2, 0xFFFFFFFF);
+  filledPolygonColor(renderer, StarShape::_xs, StarShape::_ys, StarShape::_sides * 2, ColorPalette::BLACK);
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 }
 
