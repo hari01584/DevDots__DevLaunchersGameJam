@@ -36,9 +36,6 @@ void frame()
 
           }
           break;
-      case SDL_MOUSEBUTTONDOWN:
-          // SDL_SetRenderDrawColor(renderer, RandU(0,255),RandU(0,255), RandU(0,255), RandU(0,255));
-          break;
       default:
           current->eventHandler(event);
           break;

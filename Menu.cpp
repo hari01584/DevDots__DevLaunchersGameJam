@@ -23,6 +23,17 @@ Button b1;
 Button b2;
 Button b3;
 
+void showHowToPlay(){
+  printf("\nHow to play?\n");
+  printf("You asked the right person, so basically this game is about a coding snake (or nerd snake) which eats devbeans or normal beans to get his coding energy! But there's a problem, everytime he consume it, he increase in size! and if accidentally he bit himself then he will die! *Your objective is to get maximum number of beans and devbeans to help our little companion in his coding journey!!*\n");
+  printf("\nLong story short, this is classic snake-eat-stuff type of game where you have to get max points and somehow avoid the snake biting his own tail! Now you got it, enjoy playing! :D\n");
+}
+
+void selfCreds(){
+  printf("\nSelf Credits :P!\n");
+  printf("You dont have to tell me, yes im shameless to add my name in this work, even though it is just for a gamejam! but say all you want but this is what i like hehhehehe! Anyways, this game is made solely by Agent_Orange#9852(Discord Tag), be sure to friend them and drop a hello if you like it! My motive was to make a game not just for gamejam purposes, but also ingeneral, so my fellow discordians would enjoy it beyond the scope of being used as gamejam submission!\n");
+}
+
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
@@ -57,10 +68,10 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
   b1 = Button(play, dstrect, NULL);
 
   dstrect.y += h + 8;
-  b2 = Button(howtop, dstrect, NULL);
+  b2 = Button(howtop, dstrect, showHowToPlay);
 
   dstrect.y += h + 8;
-  b3 = Button(creds, dstrect, NULL);
+  b3 = Button(creds, dstrect, selfCreds);
 }
 
 void Menu::gameloop(float step){
@@ -91,12 +102,6 @@ void Menu::eventHandler(const SDL_Event &event){
   b1.processEvent(&event);
   b2.processEvent(&event);
   b3.processEvent(&event);
-
-  int r = utils::RandU(0,255);
-  int g = utils::RandU(0,255);
-  int b = utils::RandU(0,255);
-  //SDL_SetRenderDrawColor(renderer, r, g, b, 255);
-  printf("Color %d %d %d\n", r, g, b);
 }
 
 Menu::~Menu(){
