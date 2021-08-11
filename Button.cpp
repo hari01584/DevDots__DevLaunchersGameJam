@@ -18,6 +18,10 @@ Button::Button(Spritesheet* s, SDL_Rect r, void(*c)())
     click = c;
 }
 
+Button::~Button() {
+  //delete sprites;
+}
+
 void Button::processEvent(const SDL_Event *e) {
     if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
     {

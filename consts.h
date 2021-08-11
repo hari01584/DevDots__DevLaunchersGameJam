@@ -9,6 +9,7 @@ static const char* IMAGE_HOWTOP_BG = "./assets/img_howto_bg.png";
 static const char* IMAGE_CREDS = "./assets/img_cred.png";
 static const char* IMAGE_CREDS_BG = "./assets/img_cred_bg.png";
 
+static const char* IMAGE_BACK_BTN = "./assets/img_back_btn_bg.png";
 
 static const int WIDTH = 640;
 static const int HEIGHT = 480;

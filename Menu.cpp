@@ -9,6 +9,8 @@
 #include "Spritesheet.cpp"
 #include "Button.cpp"
 #include "consts.h"
+#include "SCENE_.h"
+#include "entry.h"
 
 #include "ColorPalette.h"
 
@@ -22,6 +24,10 @@ Spritesheet *creds;
 Button b1;
 Button b2;
 Button b3;
+
+void playGame(){
+  setScreen(SCENE_::INGAME);
+}
 
 void showHowToPlay(){
   printf("\nHow to play?\n");
@@ -65,7 +71,7 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
   int h = 70;
   SDL_Rect dstrect = {(WIDTH - w)/2,int((HEIGHT - h)*0.56666),w,h};
 
-  b1 = Button(play, dstrect, NULL);
+  b1 = Button(play, dstrect, playGame);
 
   dstrect.y += h + 8;
   b2 = Button(howtop, dstrect, showHowToPlay);
@@ -108,11 +114,13 @@ Menu::~Menu(){
   for(auto itr : stars){
     delete itr;
   }
+  stars.clear();
+
+  delete title;
   delete play;
   delete howtop;
   delete creds;
   // delete b1;
-  printf("Menu Closed!!\n");
 }
 
 #endif

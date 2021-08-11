@@ -23,7 +23,6 @@ Spritesheet::Spritesheet(char const* path, int row, int column)
 
 Spritesheet::~Spritesheet()
 {
-    SDL_Log("Destroy");
     SDL_FreeSurface(m_spritesheet_image);
     SDL_FreeSurface(ninepbg);
 }

@@ -15,6 +15,7 @@ class Button
 
 public:
     Button();
+    ~Button();
     Button(Spritesheet* s, SDL_Rect r, void(*c)());
 
     Spritesheet* getSprites() {

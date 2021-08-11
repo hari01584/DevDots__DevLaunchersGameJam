@@ -2,10 +2,11 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <emscripten.h>
-
 #include "SCENE_.h"
 #include "SceneLayout.cpp"
 #include "Menu.cpp"
+#include "Game.cpp"
+#include "entry.h"
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -13,10 +14,13 @@ TTF_Font *font;
 SceneLayout* current;
 Uint32 currentTime;
 
-void setScreen(SCENE_ scene){
-  delete current;
+static void setScreen(SCENE_ scene){
+  if(current) delete current;
   if(scene == SCENE_::MAIN){
     current = new Menu(window, renderer);
+  }
+  else if(scene == SCENE_::INGAME){
+    current = new Game(window, renderer);
   }
 }
 
