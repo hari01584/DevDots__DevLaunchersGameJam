@@ -197,7 +197,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
     }
   
    }
-   loadPackage({"files": [{"filename": "/assets/devnakes.png", "start": 0, "end": 18472, "audio": 0}, {"filename": "/assets/img_cred.png", "start": 18472, "end": 21940, "audio": 0}, {"filename": "/assets/img_cred_bg.png", "start": 21940, "end": 29014, "audio": 0}, {"filename": "/assets/img_howto.png", "start": 29014, "end": 32482, "audio": 0}, {"filename": "/assets/img_howto_bg.png", "start": 32482, "end": 39511, "audio": 0}, {"filename": "/assets/img_play.png", "start": 39511, "end": 42979, "audio": 0}, {"filename": "/assets/img_play_bg.png", "start": 42979, "end": 50152, "audio": 0}], "remote_package_size": 50152, "package_uuid": "126ece47-4a32-419d-8b1c-594ae2003df3"});
+   loadPackage({"files": [{"filename": "/assets/devnakes.png", "start": 0, "end": 18472, "audio": 0}, {"filename": "/assets/img_cred.png", "start": 18472, "end": 21940, "audio": 0}, {"filename": "/assets/img_cred_bg.png", "start": 21940, "end": 23553, "audio": 0}, {"filename": "/assets/img_cred_bg.png~", "start": 23553, "end": 25161, "audio": 0}, {"filename": "/assets/img_howto.png", "start": 25161, "end": 28629, "audio": 0}, {"filename": "/assets/img_howto_bg.png", "start": 28629, "end": 30681, "audio": 0}, {"filename": "/assets/img_howto_bg.png~", "start": 30681, "end": 32921, "audio": 0}, {"filename": "/assets/img_play.png", "start": 32921, "end": 36389, "audio": 0}, {"filename": "/assets/img_play_bg.png", "start": 36389, "end": 38603, "audio": 0}, {"filename": "/assets/img_play_bg.png~", "start": 38603, "end": 40216, "audio": 0}], "remote_package_size": 40216, "package_uuid": "2670991b-c0ff-4684-b13d-07b878fe32b4"});
   
   })();
   
@@ -9225,10 +9225,10 @@ var _memcpy = Module["_memcpy"] = createExportWrapper("memcpy");
 var _main = Module["_main"] = createExportWrapper("main");
 
 /** @type {function(...*):?} */
-var _malloc = Module["_malloc"] = createExportWrapper("malloc");
+var _free = Module["_free"] = createExportWrapper("free");
 
 /** @type {function(...*):?} */
-var _free = Module["_free"] = createExportWrapper("free");
+var _malloc = Module["_malloc"] = createExportWrapper("malloc");
 
 /** @type {function(...*):?} */
 var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
