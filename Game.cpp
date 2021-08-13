@@ -14,9 +14,13 @@ Snake *snake;
 float counter;
 int a, b;
 
-void changeToMenu(){
+void Game::changeToMenu(int x){
+  //delete this;
+  stop = true;
   printf("Change to main menu\n");
   setScreen(SCENE_::MAIN);
+  printf("Return\n");
+  //delete this;
 }
 
 Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, renderer){
@@ -30,24 +34,27 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
       // handle error
   }
 
+
   backsp = new Spritesheet(IMAGE_BACK_BTN, 2, 1);
-
   SDL_Rect dstrect = {0,0,25,25};
+  backbutton = Button(backsp, dstrect, NULL);
 
-  backbutton = Button(backsp, dstrect, changeToMenu);
+  using namespace std::placeholders;
+  backbutton.addHandler(std::bind(&Game::changeToMenu, this, _1));
+
+
   helpergrid = new SquareBoxGrid(WIDTH, HEIGHT, 40);
   helpergrid->getBoxDimen(&a, &b);
 
   snake = new Snake(helpergrid);
 
   snake->addSnakeDatumOnDirect();
-
   snake->addSnakeDatumOnDirect();
-
   counter = 0;
 }
 
 void Game::gameloop(float step){
+  if(stop) return;
   counter+=step;
   if(counter>0.5){
     snake->addSnakeDatumOnDirect();
@@ -77,7 +84,7 @@ void Game::gameloop(float step){
 void Game::eventHandler(const SDL_Event &event){
   backbutton.processEvent(&event);
   snake->processEvent(&event);
-  // changeToMenu();
+  //changeToMenu();
 }
 
 Game::~Game(){

@@ -5,6 +5,8 @@
 #ifndef ANDROID_PROJECT_BUTTON_H
 #define ANDROID_PROJECT_BUTTON_H
 
+#include <functional>
+
 class Button
 {
     SDL_Rect Message_rect;
@@ -12,11 +14,14 @@ class Button
     bool buttonClick = false;
     bool buttonRelease = true;
     void(*click)();
+    std::function<void(int)> callback;
 
 public:
     Button();
     ~Button();
     Button(Spritesheet* s, SDL_Rect r, void(*c)());
+
+    void addHandler(std::function<void(int)> callback);
 
     Spritesheet* getSprites() {
         return sprites;

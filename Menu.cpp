@@ -17,15 +17,15 @@
 #include "SCENE_.h"
 #include "StarShape.cpp"
 
-  SDL_Texture* title;
+SDL_Texture* title;
 
-  std::vector<StarShape*> stars;
-  Spritesheet *play;
-  Spritesheet *howtop;
-  Spritesheet *creds;
-  Button b1;
-  Button b2;
-  Button b3;
+std::vector<StarShape*> stars;
+Spritesheet *play;
+Spritesheet *howtop;
+Spritesheet *creds;
+Button b1;
+Button b2;
+Button b3;
 
 void playGame(){
   printf("Change to play game\n");
@@ -53,6 +53,7 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
       printf("IMG_Init: %s\n", IMG_GetError());
       // handle error
   }
+  printf("M56!\n");
 
   SDL_Surface * sur = IMG_Load(TITLE_PATH);
   if(sur!=NULL){
@@ -72,6 +73,7 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
   else{
     SDL_Log("Error loading title image\n");
   }
+  printf("M76!\n");
 
   play = new Spritesheet(IMAGE_PLAY, 2, 1);
   play->setNinePatch(IMAGE_PLAY_BG,20,20,20,20, true);
@@ -81,12 +83,14 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
 
   howtop = new Spritesheet(IMAGE_HOWTOP, 2, 1);
   howtop->setNinePatch(IMAGE_HOWTOP_BG,20,20,20,20, true);
+  printf("M86!\n");
 
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
 
   for(int i=0;i<100;i++){
     stars.push_back(new StarShape(utils::RandU(0,640),utils::RandU(0,480), utils::RandU(1,4), utils::RandU(10,40)));
   }
+  printf("M87!\n");
 
   int w = 400;
   int h = 70;
@@ -99,37 +103,44 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
 
   dstrect.y += h + 8;
   b3 = Button(creds, dstrect, selfCreds);
+  printf("M88!\n");
+
 }
 
 void Menu::gameloop(float step){
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
   SDL_RenderClear(renderer);
-
-  for(auto itr : stars){
-    itr->increaseAndBuild(step);
-    itr->drawStars(renderer);
-  }
-  SDL_RenderCopy(renderer, title, NULL, NULL);
-
+  //
+  // for(auto itr : stars){
+  //   itr->increaseAndBuild(step);
+  //   itr->drawStars(renderer);
+  // }
+  // SDL_RenderCopy(renderer, title, NULL, NULL);
+printf("L119!\n");
   SDL_Surface* tempSurface = SDL_CreateRGBSurface(0,WIDTH,HEIGHT, 32, 0xff, 0xff00, 0xff0000, 0xff000000);
   b1.renderButton(tempSurface);
-  b2.renderButton(tempSurface);
-  b3.renderButton(tempSurface);
+  // b2.renderButton(tempSurface);
+  // b3.renderButton(tempSurface);
+  printf("L124!\n");
 
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
+  printf("L128!\n");
 
   SDL_FreeSurface(tempSurface);
   SDL_DestroyTexture(texture);
+  printf("L132!\n");
 
   SDL_RenderPresent(renderer);
 }
 
 void Menu::eventHandler(const SDL_Event &event){
-  playGame();
+  //playGame();
+  printf("L139!\n");
+
   b1.processEvent(&event);
-  b2.processEvent(&event);
-  b3.processEvent(&event);
+  // b2.processEvent(&event);
+  // b3.processEvent(&event);
 }
 
 Menu::~Menu(){
@@ -144,7 +155,6 @@ Menu::~Menu(){
   if(creds) delete creds;
   // delete b1;
   IMG_Quit();
-
 }
 
 #endif

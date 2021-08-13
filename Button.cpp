@@ -11,6 +11,10 @@
 Button::Button() {
 }
 
+void Button::addHandler(std::function<void(int)> callback){
+    this->callback = callback;
+}
+
 Button::Button(Spritesheet* s, SDL_Rect r, void(*c)())
 {
     sprites = s;
@@ -35,7 +39,8 @@ void Button::processEvent(const SDL_Event *e) {
             }
             else if (e->type == SDL_MOUSEBUTTONUP && buttonClick) {
                 sprites->select_sprite(0, 1);
-                click();
+                printf("Cleeeck\n");
+                callback(1);
                 buttonClick = false;
                 buttonRelease = true;
             }

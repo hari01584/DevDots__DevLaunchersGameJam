@@ -15,17 +15,22 @@ SceneLayout* current;
 Uint32 currentTime;
 
 static void setScreen(SCENE_ scene){
-  if(current) delete current;
+  delete current;
   if(scene == SCENE_::MAIN){
     current = new Menu(window, renderer);
+    printf("E21\n");
   }
   else if(scene == SCENE_::INGAME){
     current = new Game(window, renderer);
   }
+  printf("E23\n");
+
 }
 
 void frame()
 {
+  printf("E30\n");
+
   SDL_Event event;
   while (SDL_PollEvent(&event))
   {
@@ -41,16 +46,23 @@ void frame()
           }
           break;
       default:
+          printf("E25\n");
           current->eventHandler(event);
+          printf("E47\n");
+
           break;
       }
 
   }
+  printf("E55\n");
+
   Uint32 oldTime = currentTime;
   currentTime = SDL_GetTicks();
   float step = (currentTime - oldTime) / 1000.f;
-
+  printf("E60\n");
   current->gameloop(step);
+  printf("E62\n");
+
 }
 
 int main()
