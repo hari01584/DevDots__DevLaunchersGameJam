@@ -16,16 +16,21 @@
 #include <vector>
 #include "SCENE_.h"
 #include "StarShape.cpp"
+#include "SoundBox.h"
+
+#include "SDL_Mixer.h"
 
   SDL_Texture* title;
 
-  std::vector<StarShape*> stars;
-  Spritesheet *play;
-  Spritesheet *howtop;
-  Spritesheet *creds;
-  Button b1;
-  Button b2;
-  Button b3;
+std::vector<StarShape*> stars;
+Spritesheet *play;
+Spritesheet *howtop;
+Spritesheet *creds;
+Button b1;
+Button b2;
+Button b3;
+
+SoundBox *backgroundMusic;
 
 void playGame(){
   printf("Change to play game\n");
@@ -33,6 +38,8 @@ void playGame(){
 }
 
 void showHowToPlay(){
+  emscripten_run_script("alert('How to play?')");
+
   printf("\nHow to play?\n");
   printf("You asked the right person, so basically this game is about a coding snake (or nerd snake) which eats devbeans or normal beans to get his coding energy! But there's a problem, everytime he consume it, he increase in size! and if accidentally he bit himself then he will die! *Your objective is to get maximum number of beans and devbeans to help our little companion in his coding journey!!*\n");
   printf("\nLong story short, this is classic snake-eat-stuff type of game where you have to get max points and somehow avoid the snake biting his own tail! Now you got it, enjoy playing! :D\n");
@@ -46,13 +53,8 @@ void selfCreds(){
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
-  int flags = IMG_INIT_PNG;
-  int initted = IMG_Init(flags);
-  if ((initted & flags) != flags) {
-      printf("IMG_Init: Failed to init!\n");
-      printf("IMG_Init: %s\n", IMG_GetError());
-      // handle error
-  }
+  backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
+  backgroundMusic->play();
 
   SDL_Surface * sur = IMG_Load(TITLE_PATH);
   if(sur!=NULL){
@@ -142,9 +144,8 @@ Menu::~Menu(){
   if(play) delete play;
   if(howtop) delete howtop;
   if(creds) delete creds;
-  // delete b1;
-  IMG_Quit();
 
+  if(backgroundMusic) delete backgroundMusic;
 }
 
 #endif

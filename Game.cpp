@@ -6,6 +6,8 @@
 #include "entry.h"
 #include "SquareBoxGrid.cpp"
 #include "Snake.cpp"
+#include "SDL_Mixer.h"
+#include "SoundBox.cpp"
 
 Spritesheet *backsp;
 Button backbutton;
@@ -14,36 +16,20 @@ Snake *snake;
 float counter;
 int a, b;
 
-void changeToMenu(){
-  printf("Change to main menu\n");
-  setScreen(SCENE_::MAIN);
-}
 
 Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, renderer){
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
 
-  int flags = IMG_INIT_PNG;
-  int initted = IMG_Init(flags);
-  if ((initted & flags) != flags) {
-      printf("IMG_Init: Failed to init!\n");
-      printf("IMG_Init: %s\n", IMG_GetError());
-      // handle error
-  }
-
   backsp = new Spritesheet(IMAGE_BACK_BTN, 2, 1);
-
   SDL_Rect dstrect = {0,0,25,25};
 
-  backbutton = Button(backsp, dstrect, changeToMenu);
+  backbutton = Button(backsp, dstrect, NULL);
   helpergrid = new SquareBoxGrid(WIDTH, HEIGHT, 40);
   helpergrid->getBoxDimen(&a, &b);
 
   snake = new Snake(helpergrid);
-
   snake->addSnakeDatumOnDirect();
-
   snake->addSnakeDatumOnDirect();
-
   counter = 0;
 }
 
@@ -51,9 +37,7 @@ void Game::gameloop(float step){
   counter+=step;
   if(counter>0.5){
     snake->addSnakeDatumOnDirect();
-    //snake->removeLastSnakeDatum();
-
-    printf("Half sec\n");
+    snake->removeLastSnakeDatum();
     counter = 0;
   }
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
@@ -75,8 +59,13 @@ void Game::gameloop(float step){
 }
 
 void Game::eventHandler(const SDL_Event &event){
-  backbutton.processEvent(&event);
   snake->processEvent(&event);
+
+  //backbutton.processEvent(&event);
+  if(backbutton.processEventGetClicked(&event)){
+    printf("Cleeecked\n");
+    setScreen(SCENE_::MAIN);
+  }
   // changeToMenu();
 }
 
@@ -85,7 +74,6 @@ Game::~Game(){
   if(snake) delete snake;
   if(helpergrid) delete helpergrid;
 
-  IMG_Quit();
 }
 
 #endif

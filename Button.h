@@ -25,7 +25,8 @@ public:
     const SDL_Rect * getRect() {
         return &Message_rect;
     }
-    void processEvent(const SDL_Event *e);
+    void processEvent(const SDL_Event *e, bool *isClick=NULL);
+    bool processEventGetClicked(const SDL_Event *e);
     void renderButton(SDL_Surface* surface);
 };
 

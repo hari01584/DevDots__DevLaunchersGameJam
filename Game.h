@@ -10,6 +10,7 @@ public:
   Game(SDL_Window *window, SDL_Renderer *renderer);
   void gameloop(float step);
   void eventHandler(const SDL_Event &event);
+  friend void changeToMenu();
   ~Game();
 };
 

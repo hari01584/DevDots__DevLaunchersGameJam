@@ -41,7 +41,7 @@ void frame()
           }
           break;
       default:
-          current->eventHandler(event);
+          if(current) current->eventHandler(event);
           break;
       }
 
@@ -50,16 +50,34 @@ void frame()
   currentTime = SDL_GetTicks();
   float step = (currentTime - oldTime) / 1000.f;
 
-  current->gameloop(step);
+  if(current) current->gameloop(step);
 }
 
 int main()
 {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    if(SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO ) < 0){
+         printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+    }
 
     SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer);
+
+    int flags = IMG_INIT_PNG;
+    int initted = IMG_Init(flags);
+    if ((initted & flags) != flags) {
+        printf("IMG_Init: Failed to init!\n");
+        printf("IMG_Init: %s\n", IMG_GetError());
+        // handle error
+    }
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
+      printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+    }
 
     current = new Game(window, renderer);
     currentTime = SDL_GetTicks();
     emscripten_set_main_loop(frame, 0, 1);
+
+    IMG_Quit();
+    Mix_Quit();
+    printf("Yes? \n");
 }

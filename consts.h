@@ -4,6 +4,8 @@
 static const int WIDTH = 640;
 static const int HEIGHT = 480;
 
+static const char* SOUND_GAME_BACKGROUND = "./sounds/sound_game_background.wav";
+
 static const char* TITLE_PATH = "./assets/devnakes.png";
 
 static const char* IMAGE_PLAY = "./assets/img_play.png";

@@ -23,6 +23,10 @@ namespace utils{
           return b;
       return gcd(b % a, a);
   }
+
+  void alert(){
+    
+  }
 }
 
 #endif

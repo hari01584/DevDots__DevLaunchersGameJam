@@ -22,7 +22,7 @@ Button::~Button() {
   //delete sprites;
 }
 
-void Button::processEvent(const SDL_Event *e) {
+void Button::processEvent(const SDL_Event *e, bool *isClick) {
     if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
     {
         int x, y;
@@ -35,7 +35,8 @@ void Button::processEvent(const SDL_Event *e) {
             }
             else if (e->type == SDL_MOUSEBUTTONUP && buttonClick) {
                 sprites->select_sprite(0, 1);
-                click();
+                if(isClick) *isClick = true;
+                if(click) click();
                 buttonClick = false;
                 buttonRelease = true;
             }
@@ -50,6 +51,12 @@ void Button::processEvent(const SDL_Event *e) {
     else{
         sprites->select_sprite(0, 0);
     }
+}
+
+bool Button::processEventGetClicked(const SDL_Event *e) {
+  bool isClick = false;
+  processEvent(e, &isClick);
+  return isClick;
 }
 
 void Button::renderButton(SDL_Surface* surface)
