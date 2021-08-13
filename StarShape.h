@@ -1,5 +1,6 @@
 #ifndef StarShape_H
 #define StarShape_H
+#include "utils.cpp"
 
 class StarShape{
 float x, y;

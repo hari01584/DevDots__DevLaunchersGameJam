@@ -19,12 +19,13 @@ Spritesheet::Spritesheet(char const* path, int row, int column)
     m_clip.w = m_spritesheet_image->w / column;
     m_clip.h = m_spritesheet_image->h / row;
     select_sprite(0,0);
+    isContainsBg = false;
 }
 
 Spritesheet::~Spritesheet()
 {
-    SDL_FreeSurface(m_spritesheet_image);
-    SDL_FreeSurface(ninepbg);
+    if(m_spritesheet_image) SDL_FreeSurface(m_spritesheet_image);
+    if(ninepbg && isContainsBg) SDL_FreeSurface(ninepbg);
 }
 
 void Spritesheet::select_sprite(int x, int y)

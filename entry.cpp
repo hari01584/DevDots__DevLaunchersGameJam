@@ -57,9 +57,9 @@ int main()
 {
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_CreateWindowAndRenderer(640, 480, 0, &window, &renderer);
+    SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer);
 
-    current = new Menu(window, renderer);
+    current = new Game(window, renderer);
     currentTime = SDL_GetTicks();
     emscripten_set_main_loop(frame, 0, 1);
 }

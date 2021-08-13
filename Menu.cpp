@@ -3,29 +3,32 @@
 
 #include "Menu.h"
 #include "utils.cpp"
-#include "StarShape.cpp"
 #include "ColorPalette.h"
-#include <vector>
-#include "Spritesheet.cpp"
-#include "Button.cpp"
+
 #include "consts.h"
-#include "SCENE_.h"
 #include "entry.h"
 
 #include "ColorPalette.h"
+#include <stdio.h>
+#include "SceneLayout.cpp"
+#include "Spritesheet.cpp"
+#include "Button.cpp"
+#include <vector>
+#include "SCENE_.h"
+#include "StarShape.cpp"
 
-SDL_Surface* title;
-SDL_Rect titleRect;
+  SDL_Texture* title;
 
-std::vector<StarShape*> stars;
-Spritesheet *play;
-Spritesheet *howtop;
-Spritesheet *creds;
-Button b1;
-Button b2;
-Button b3;
+  std::vector<StarShape*> stars;
+  Spritesheet *play;
+  Spritesheet *howtop;
+  Spritesheet *creds;
+  Button b1;
+  Button b2;
+  Button b3;
 
 void playGame(){
+  printf("Change to play game\n");
   setScreen(SCENE_::INGAME);
 }
 
@@ -43,14 +46,32 @@ void selfCreds(){
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
-  title = IMG_Load(TITLE_PATH);
-  int tw = title->w;
-  int th = title->h;
-  float asp = th/tw;
+  int flags = IMG_INIT_PNG;
+  int initted = IMG_Init(flags);
+  if ((initted & flags) != flags) {
+      printf("IMG_Init: Failed to init!\n");
+      printf("IMG_Init: %s\n", IMG_GetError());
+      // handle error
+  }
 
-  int tx = (WIDTH - tw) / 2;
-  int ty = (HEIGHT - th) / 4;
-  titleRect = { tx, ty, tw ,th };
+  SDL_Surface * sur = IMG_Load(TITLE_PATH);
+  if(sur!=NULL){
+    int tw = sur->w;
+    int th = sur->h;
+    float asp = th/tw;
+    int tx = (WIDTH - tw) / 2;
+    int ty = (HEIGHT - th) / 4;
+    SDL_Rect titleRect = { tx, ty, tw ,th };
+
+    SDL_Surface* tempSurface = SDL_CreateRGBSurface(0,WIDTH,HEIGHT, 32, 0xff, 0xff00, 0xff0000, 0xff000000);
+    SDL_BlitScaled(sur, NULL, tempSurface, &titleRect);
+    title = SDL_CreateTextureFromSurface(renderer, tempSurface);
+    SDL_FreeSurface(tempSurface);
+    SDL_FreeSurface(sur);
+  }
+  else{
+    SDL_Log("Error loading title image\n");
+  }
 
   play = new Spritesheet(IMAGE_PLAY, 2, 1);
   play->setNinePatch(IMAGE_PLAY_BG,20,20,20,20, true);
@@ -88,16 +109,16 @@ void Menu::gameloop(float step){
     itr->increaseAndBuild(step);
     itr->drawStars(renderer);
   }
+  SDL_RenderCopy(renderer, title, NULL, NULL);
 
   SDL_Surface* tempSurface = SDL_CreateRGBSurface(0,WIDTH,HEIGHT, 32, 0xff, 0xff00, 0xff0000, 0xff000000);
-  SDL_BlitScaled(title, NULL, tempSurface, &titleRect);
-
   b1.renderButton(tempSurface);
   b2.renderButton(tempSurface);
   b3.renderButton(tempSurface);
 
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
+
   SDL_FreeSurface(tempSurface);
   SDL_DestroyTexture(texture);
 
@@ -105,6 +126,7 @@ void Menu::gameloop(float step){
 }
 
 void Menu::eventHandler(const SDL_Event &event){
+  playGame();
   b1.processEvent(&event);
   b2.processEvent(&event);
   b3.processEvent(&event);
@@ -112,15 +134,17 @@ void Menu::eventHandler(const SDL_Event &event){
 
 Menu::~Menu(){
   for(auto itr : stars){
-    delete itr;
+    if(itr) delete itr;
   }
   stars.clear();
 
-  delete title;
-  delete play;
-  delete howtop;
-  delete creds;
+  if(title) SDL_DestroyTexture(title);
+  if(play) delete play;
+  if(howtop) delete howtop;
+  if(creds) delete creds;
   // delete b1;
+  IMG_Quit();
+
 }
 
 #endif

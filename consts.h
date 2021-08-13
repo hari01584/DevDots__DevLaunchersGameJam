@@ -1,3 +1,9 @@
+#ifndef CONSTS_H
+#define CONSTS_H
+
+static const int WIDTH = 640;
+static const int HEIGHT = 480;
+
 static const char* TITLE_PATH = "./assets/devnakes.png";
 
 static const char* IMAGE_PLAY = "./assets/img_play.png";
@@ -11,5 +17,6 @@ static const char* IMAGE_CREDS_BG = "./assets/img_cred_bg.png";
 
 static const char* IMAGE_BACK_BTN = "./assets/img_back_btn_bg.png";
 
-static const int WIDTH = 640;
-static const int HEIGHT = 480;
+static const char* IMAGE_SNAKE_TEST_EYES = "./assets/snake/basic_test.png";
+
+#endif
