@@ -126,7 +126,6 @@ var Module = typeof Module !== 'undefined' ? Module : {};
       }
   Module['FS_createPath']("/", "assets", true, true);
 Module['FS_createPath']("/assets", "snake", true, true);
-Module['FS_createPath']("/", "sounds", true, true);
 
           /** @constructor */
           function DataRequest(start, end, audio) {
@@ -199,7 +198,7 @@ Module['FS_createPath']("/", "sounds", true, true);
     }
   
    }
-   loadPackage({"files": [{"filename": "/assets/devnakes.png", "start": 0, "end": 18472, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png", "start": 18472, "end": 23051, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png~", "start": 23051, "end": 27610, "audio": 0}, {"filename": "/assets/img_cred.png", "start": 27610, "end": 32781, "audio": 0}, {"filename": "/assets/img_cred_bg.png", "start": 32781, "end": 34855, "audio": 0}, {"filename": "/assets/img_howto.png", "start": 34855, "end": 38594, "audio": 0}, {"filename": "/assets/img_howto_bg.png", "start": 38594, "end": 40646, "audio": 0}, {"filename": "/assets/img_play.png", "start": 40646, "end": 43753, "audio": 0}, {"filename": "/assets/img_play_bg.png", "start": 43753, "end": 45967, "audio": 0}, {"filename": "/assets/snake/basic_test.png", "start": 45967, "end": 161061, "audio": 0}, {"filename": "/sounds/sound_game_background.wav", "start": 161061, "end": 4543023, "audio": 1}], "remote_package_size": 4543023, "package_uuid": "8022b7d8-d1df-412d-a8a1-bcd8ddb34312"});
+   loadPackage({"files": [{"filename": "/assets/devnakes.png", "start": 0, "end": 18472, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png", "start": 18472, "end": 23051, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png~", "start": 23051, "end": 27610, "audio": 0}, {"filename": "/assets/img_cred.png", "start": 27610, "end": 32781, "audio": 0}, {"filename": "/assets/img_cred_bg.png", "start": 32781, "end": 34855, "audio": 0}, {"filename": "/assets/img_howto.png", "start": 34855, "end": 38594, "audio": 0}, {"filename": "/assets/img_howto_bg.png", "start": 38594, "end": 40646, "audio": 0}, {"filename": "/assets/img_play.png", "start": 40646, "end": 43753, "audio": 0}, {"filename": "/assets/img_play_bg.png", "start": 43753, "end": 45967, "audio": 0}, {"filename": "/assets/snake/basic_test.png", "start": 45967, "end": 161061, "audio": 0}], "remote_package_size": 161061, "package_uuid": "50338310-b428-42fb-a3b0-6afcd9e86ec5"});
   
   })();
   
@@ -9240,10 +9239,10 @@ var _malloc = Module["_malloc"] = createExportWrapper("malloc");
 var _free = Module["_free"] = createExportWrapper("free");
 
 /** @type {function(...*):?} */
-var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
+var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
 
 /** @type {function(...*):?} */
-var _saveSetjmp = Module["_saveSetjmp"] = createExportWrapper("saveSetjmp");
+var ___errno_location = Module["___errno_location"] = createExportWrapper("__errno_location");
 
 /** @type {function(...*):?} */
 var _fflush = Module["_fflush"] = createExportWrapper("fflush");
@@ -9282,13 +9281,13 @@ var _setThrew = Module["_setThrew"] = createExportWrapper("setThrew");
 var _memalign = Module["_memalign"] = createExportWrapper("memalign");
 
 /** @type {function(...*):?} */
-var dynCall_iiji = Module["dynCall_iiji"] = createExportWrapper("dynCall_iiji");
-
-/** @type {function(...*):?} */
 var dynCall_ji = Module["dynCall_ji"] = createExportWrapper("dynCall_ji");
 
 /** @type {function(...*):?} */
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
+
+/** @type {function(...*):?} */
+var dynCall_iiji = Module["dynCall_iiji"] = createExportWrapper("dynCall_iiji");
 
 
 function invoke_ii(index,a1) {
