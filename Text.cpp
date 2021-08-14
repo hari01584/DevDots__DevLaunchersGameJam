@@ -3,7 +3,6 @@
 //
 
 #include "Text.h"
-#include "dimens.h"
 
 Text::Text(){
     this->tempTexture = NULL;
@@ -30,7 +29,7 @@ Text::Text(SDL_Renderer* renderer,TTF_Font* font, std::string text, SDL_Color te
 
     this->rect = rect;
 
-    SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(font, text.c_str(), textColor, width);
+    SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(font, text.c_str(), textColor, WIDTH);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     this->tempTexture = texture;
 
@@ -50,14 +49,14 @@ SDL_Rect* Text::getRect() {
 void Text::dynamicRender(SDL_Renderer* renderer, const char* c){
     SDL_DestroyTexture(tempTexture);
 
-    SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(font, c, textColor, width);
+    SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(font, c, textColor, WIDTH);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
     this->tempTexture = texture;
 
     int w,h;
     TTF_SizeText(font, c, &w, &h);
 
-    //rect.w = w * rect.h/h;
+    rect.w = w * rect.h/h;
     //rect.x -= rect.h/h;
 
     SDL_RenderCopy(renderer, tempTexture, NULL, &rect);

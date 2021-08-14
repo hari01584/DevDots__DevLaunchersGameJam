@@ -9,6 +9,7 @@
 #include "SDL_Mixer.h"
 #include "SoundBox.cpp"
 #include "BeanObject.cpp"
+#include "Text.cpp"
 
 Spritesheet *backsp;
 Button backbutton;
@@ -17,6 +18,9 @@ Snake *snake;
 float counter;
 int a, b;
 BeanObject *beans;
+TTF_Font * font;
+Text scores;
+int scoreAmt;
 
 Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, renderer){
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
@@ -35,6 +39,13 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
 
   beans = new BeanObject(helpergrid);
 
+  font = TTF_OpenFont(FONT_TEXT_PATH, 25);
+  dstrect.x += dstrect.w + 8;
+  dstrect.w = 50;
+  SDL_Color color = {0, 0, 0};
+  std::string scoreStr = "0";
+  scoreAmt = 0;
+  scores = Text(renderer, font, scoreStr, color, dstrect);
 }
 
 void Game::gameloop(float step){
@@ -44,6 +55,12 @@ void Game::gameloop(float step){
     BType b;
     if((b = beans->beansBuilderGetCollison(snake->getSnakePointer()))==BType::NONE){
       snake->removeLastSnakeDatum();
+    }
+    else if(b == BType::NORMAL){
+      scoreAmt += 1;
+    }
+    else if(b == BType::GOLDEN){
+      scoreAmt += 2;
     }
     counter = 0;
   }
@@ -61,6 +78,8 @@ void Game::gameloop(float step){
 
   //helpergrid->renderHelperRects(renderer);
   snake->renderSnake(renderer);
+
+  scores.dynamicRender(renderer, std::to_string(scoreAmt).c_str());
 
   SDL_RenderPresent(renderer);
 }
@@ -80,7 +99,8 @@ Game::~Game(){
   if(backsp) delete backsp;
   if(snake) delete snake;
   if(helpergrid) delete helpergrid;
-
+  scoreAmt = 0;
+  TTF_CloseFont(font);
 }
 
 #endif

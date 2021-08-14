@@ -6,6 +6,9 @@ static const int HEIGHT = 480;
 
 static const char* SOUND_GAME_BACKGROUND = "./sounds/sound_game_background.wav";
 
+// Font
+static const char* FONT_TEXT_PATH = "./assets/Roboto-Medium.ttf";
+
 static const char* IMAGE_BEANS = "./assets/img_beans_soft.png";
 
 static const char* TITLE_PATH = "./assets/devnakes.png";

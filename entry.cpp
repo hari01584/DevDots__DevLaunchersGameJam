@@ -7,10 +7,10 @@
 #include "Menu.cpp"
 #include "Game.cpp"
 #include "entry.h"
+#include <SDL_ttf.h>
 
 SDL_Window *window;
 SDL_Renderer *renderer;
-TTF_Font *font;
 SceneLayout* current;
 Uint32 currentTime;
 
@@ -62,6 +62,8 @@ int main()
 
     SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer);
 
+    TTF_Init();
+
     int flags = IMG_INIT_PNG;
     int initted = IMG_Init(flags);
     if ((initted & flags) != flags) {
@@ -81,6 +83,7 @@ int main()
     IMG_Quit();
     Mix_Quit();
     SDL_Quit();
+    TTF_Quit();
 
     printf("Yes? \n");
 }

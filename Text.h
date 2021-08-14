@@ -5,8 +5,10 @@
 #ifndef ANDROID_PROJECT_TEXT_H
 #define ANDROID_PROJECT_TEXT_H
 
-
-#include "import.h"
+#include "SDL.h"
+#include <SDL_ttf.h>
+#include "consts.h"
+#include <string>
 
 class Text {
     TTF_Font * font;
