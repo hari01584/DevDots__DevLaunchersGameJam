@@ -66,7 +66,8 @@ void Game::eventHandler(const SDL_Event &event){
     printf("Cleeecked\n");
     setScreen(SCENE_::MAIN);
   }
-  // changeToMenu();
+  setScreen(SCENE_::MAIN);
+
 }
 
 Game::~Game(){

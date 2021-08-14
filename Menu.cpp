@@ -20,7 +20,7 @@
 
 #include "SDL_Mixer.h"
 
-  SDL_Texture* title;
+SDL_Texture* title;
 
 std::vector<StarShape*> stars;
 Spritesheet *play;
@@ -30,7 +30,7 @@ Button b1;
 Button b2;
 Button b3;
 
-SoundBox *backgroundMusic;
+// SoundBox *backgroundMusic;
 
 void playGame(){
   printf("Change to play game\n");
@@ -53,8 +53,8 @@ void selfCreds(){
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
-  backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
-  backgroundMusic->play();
+  // backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
+  // backgroundMusic->play();
 
   SDL_Surface * sur = IMG_Load(TITLE_PATH);
   if(sur!=NULL){
@@ -145,7 +145,7 @@ Menu::~Menu(){
   if(howtop) delete howtop;
   if(creds) delete creds;
 
-  if(backgroundMusic) delete backgroundMusic;
+  // if(backgroundMusic) delete backgroundMusic;
 }
 
 #endif
