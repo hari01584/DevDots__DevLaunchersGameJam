@@ -1,19 +1,8 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 #include <queue>
-
-enum SnakeDirection { UP, DOWN, LEFT, RIGHT };
-
-
-struct SnakeDatum{
-  uint16_t x, y;
-  SnakeDirection direction;
-  SnakeDatum(int x, int y, SnakeDirection direction){
-    this->x=x;
-    this->y=y;
-    this->direction=direction;
-  }
-};
+#include "SnakeDatum.h"
+#include "SnakeDirection.h"
 
 class Snake{
   int _a, _b;

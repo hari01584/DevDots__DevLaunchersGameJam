@@ -1,6 +1,7 @@
 #ifndef SNAKE_CPP
 #define SNAKE_CPP
 #include "Snake.h"
+#include "SnakeDatum.h"
 #include "SquareBoxGrid.h"
 #include "utils.cpp"
 #include "ColorPalette.h"

@@ -8,6 +8,7 @@
 #include "Snake.cpp"
 #include "SDL_Mixer.h"
 #include "SoundBox.cpp"
+#include "BeanObject.cpp"
 
 Spritesheet *backsp;
 Button backbutton;
@@ -15,7 +16,7 @@ SquareBoxGrid * helpergrid;
 Snake *snake;
 float counter;
 int a, b;
-
+BeanObject *beans;
 
 Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, renderer){
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
@@ -54,6 +55,7 @@ void Game::gameloop(float step){
   //helpergrid->renderHelperRects(renderer);
   snake->renderSnake(renderer);
 
+  beans = new BeanObject(helpergrid);
 
   SDL_RenderPresent(renderer);
 }
@@ -66,7 +68,6 @@ void Game::eventHandler(const SDL_Event &event){
     printf("Cleeecked\n");
     setScreen(SCENE_::MAIN);
   }
-  setScreen(SCENE_::MAIN);
 
 }
 

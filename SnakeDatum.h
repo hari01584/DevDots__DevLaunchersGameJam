@@ -1,6 +1,8 @@
 #ifndef SNAKEDATUM_H
 #define SNAKEDATUM_H
 
+#include "SnakeDirection.h"
+
 struct SnakeDatum{
   uint16_t x, y;
   SnakeDirection direction;

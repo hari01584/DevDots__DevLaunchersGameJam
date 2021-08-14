@@ -68,7 +68,8 @@ void StarShape::drawStars(SDL_Renderer * renderer){
 }
 
 StarShape::~StarShape(){
-
+  std::fill_n(_xs, 10, 0);
+  std::fill_n(_ys, 10, 0);
 }
 
 #endif
