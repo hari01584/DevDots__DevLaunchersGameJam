@@ -53,8 +53,8 @@ void selfCreds(){
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
-  backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
-  backgroundMusic->play();
+  // backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
+  // backgroundMusic->play();
 
   SDL_Surface * sur = IMG_Load(TITLE_PATH);
   if(sur!=NULL){
