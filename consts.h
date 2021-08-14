@@ -1,10 +1,14 @@
 #ifndef CONSTS_H
 #define CONSTS_H
 
+enum SnakeDirection { UP, DOWN, LEFT, RIGHT };
+
 static const int WIDTH = 640;
 static const int HEIGHT = 480;
 
 static const char* TITLE_PATH = "./assets/devnakes.png";
+
+static const char* IMAGE_BEANS = "./assets/img_beans.png";
 
 static const char* IMAGE_PLAY = "./assets/img_play.png";
 static const char* IMAGE_PLAY_BG = "./assets/img_play_bg.png";

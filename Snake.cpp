@@ -68,7 +68,6 @@ Snake::~Snake(){
       _tree.pop();
   }
   // if(_sqg) delete _sqg; #Double Delete
-
   if(std) delete std;
 }
 
@@ -83,11 +82,14 @@ void Snake::renderSnake(SDL_Renderer * renderer){
   }
 
   // Debag
-  Square* sq = _sqg->getBox(_tree.front()->x, _tree.front()->y);
+  SnakeDatum* f = _tree.front();
+  Square* sq = _sqg->getBox(f->x, f->y);
   boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::RED);
   delete sq;
+  //delete f;
 
-  sq = _sqg->getBox(_tree.back()->x, _tree.back()->y);
+  SnakeDatum* b = _tree.back();
+  sq = _sqg->getBox(b->x, b->y);
   boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::BLUE);
   delete sq;
 }

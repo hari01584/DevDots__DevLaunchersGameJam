@@ -40,7 +40,7 @@ void SquareBoxGrid::renderHelperRects(SDL_Renderer * renderer){
   }
 }
 
-void SquareBoxGrid::getBoxDimen(int *a, int *b){
+void SquareBoxGrid::getBoxDimen(int *a, int *b) const{
   *a = _a;
   *b = _b;
 }

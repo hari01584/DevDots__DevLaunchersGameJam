@@ -6,10 +6,17 @@
 #include "entry.h"
 #include "SquareBoxGrid.cpp"
 #include "Snake.cpp"
+<<<<<<< Updated upstream
+=======
+#include "SDL_Mixer.h"
+#include "SoundBox.cpp"
+#include "BeanObject.cpp"
+>>>>>>> Stashed changes
 
 Spritesheet *backsp;
 Button backbutton;
 SquareBoxGrid * helpergrid;
+// BeanObject *beans;
 Snake *snake;
 float counter;
 int a, b;
@@ -51,6 +58,8 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
   snake->addSnakeDatumOnDirect();
   snake->addSnakeDatumOnDirect();
   counter = 0;
+
+  // beans = new BeanObject();
 }
 
 void Game::gameloop(float step){
@@ -84,15 +93,30 @@ void Game::gameloop(float step){
 void Game::eventHandler(const SDL_Event &event){
   backbutton.processEvent(&event);
   snake->processEvent(&event);
+<<<<<<< Updated upstream
   //changeToMenu();
+=======
+
+  //backbutton.processEvent(&event);
+  if(backbutton.processEventGetClicked(&event)){
+    printf("Cleeecked\n");
+    setScreen(SCENE_::MAIN);
+  }
+  setScreen(SCENE_::MAIN);
+
+>>>>>>> Stashed changes
 }
 
 Game::~Game(){
   if(backsp) delete backsp;
   if(snake) delete snake;
   if(helpergrid) delete helpergrid;
+<<<<<<< Updated upstream
 
   IMG_Quit();
+=======
+  // if(beans) delete beans;
+>>>>>>> Stashed changes
 }
 
 #endif

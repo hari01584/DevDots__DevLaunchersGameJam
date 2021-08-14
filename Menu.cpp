@@ -46,6 +46,7 @@ void selfCreds(){
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
+<<<<<<< Updated upstream
   int flags = IMG_INIT_PNG;
   int initted = IMG_Init(flags);
   if ((initted & flags) != flags) {
@@ -54,6 +55,11 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
       // handle error
   }
   printf("M56!\n");
+=======
+  backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
+  backgroundMusic->play();
+  printf("M58!\n");
+>>>>>>> Stashed changes
 
   SDL_Surface * sur = IMG_Load(TITLE_PATH);
   if(sur!=NULL){
@@ -73,7 +79,11 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
   else{
     SDL_Log("Error loading title image\n");
   }
+<<<<<<< Updated upstream
   printf("M76!\n");
+=======
+  printf("M78!\n");
+>>>>>>> Stashed changes
 
   play = new Spritesheet(IMAGE_PLAY, 2, 1);
   play->setNinePatch(IMAGE_PLAY_BG,20,20,20,20, true);
@@ -86,15 +96,21 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
   printf("M86!\n");
 
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+  printf("M90!\n");
 
   for(int i=0;i<100;i++){
     stars.push_back(new StarShape(utils::RandU(0,640),utils::RandU(0,480), utils::RandU(1,4), utils::RandU(10,40)));
   }
+<<<<<<< Updated upstream
   printf("M87!\n");
+=======
+  printf("M95!\n");
+>>>>>>> Stashed changes
 
   int w = 400;
   int h = 70;
   SDL_Rect dstrect = {(WIDTH - w)/2,int((HEIGHT - h)*0.56666),w,h};
+  printf("M100!\n");
 
   b1 = Button(play, dstrect, playGame);
 
@@ -103,7 +119,11 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
 
   dstrect.y += h + 8;
   b3 = Button(creds, dstrect, selfCreds);
+<<<<<<< Updated upstream
   printf("M88!\n");
+=======
+  printf("M107!\n");
+>>>>>>> Stashed changes
 
 }
 
