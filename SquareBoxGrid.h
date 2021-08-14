@@ -16,8 +16,10 @@ public:
   SquareBoxGrid(int cwidth, int cheight, int boxSize);
   void renderHelperRects(SDL_Renderer * renderer);
   void getBoxDimen(int *a, int *b);
-  
+
   Square* getBox(int x, int y);
+
+  SDL_Rect getRect(int x, int y) const;
   ~SquareBoxGrid();
 
   void renderBox(SDL_Renderer * renderer);

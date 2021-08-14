@@ -77,7 +77,10 @@ int main()
     currentTime = SDL_GetTicks();
     emscripten_set_main_loop(frame, 0, 1);
 
+    delete current;
     IMG_Quit();
     Mix_Quit();
+    SDL_Quit();
+
     printf("Yes? \n");
 }

@@ -32,19 +32,26 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
   snake->addSnakeDatumOnDirect();
   snake->addSnakeDatumOnDirect();
   counter = 0;
+
+  beans = new BeanObject(helpergrid);
+
 }
 
 void Game::gameloop(float step){
   counter+=step;
   if(counter>0.5){
     snake->addSnakeDatumOnDirect();
-    snake->removeLastSnakeDatum();
+    BType b;
+    if((b = beans->beansBuilderGetCollison(snake->getSnakePointer()))==BType::NONE){
+      snake->removeLastSnakeDatum();
+    }
     counter = 0;
   }
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
   SDL_RenderClear(renderer);
 
   SDL_Surface* tempSurface = SDL_CreateRGBSurface(0,WIDTH,HEIGHT, 32, 0xff, 0xff00, 0xff0000, 0xff000000);
+  beans->beansRender(tempSurface);
   backbutton.renderButton(tempSurface);
 
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
@@ -54,8 +61,6 @@ void Game::gameloop(float step){
 
   //helpergrid->renderHelperRects(renderer);
   snake->renderSnake(renderer);
-
-  beans = new BeanObject(helpergrid);
 
   SDL_RenderPresent(renderer);
 }

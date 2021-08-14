@@ -32,8 +32,12 @@ void Snake::shiftSnakeDirec(int *x, int *y){
   }
 }
 
+SnakeDatum* Snake::getSnakePointer(){
+  return _tree.back();
+}
+
 void Snake::GameOver(){
-  printf("Game over mf");
+  printf("Game over mf\n");
 }
 
 void Snake::addSnakeDatumOnDirect(){
@@ -74,9 +78,12 @@ Snake::~Snake(){
 }
 
 void Snake::renderSnake(SDL_Renderer * renderer){
+  SnakeDatum* refHead = _tree.back();
+
   std::queue<SnakeDatum*> g = _tree;
   while (!g.empty()) {
       SnakeDatum* temp = g.front();
+      if(temp->x == refHead->x && temp->y == refHead->y && temp!=refHead) GameOver();
       Square* sq = _sqg->getBox(temp->x, temp->y);
       rectangleColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::BLACK);
       delete sq;
@@ -88,7 +95,7 @@ void Snake::renderSnake(SDL_Renderer * renderer){
   boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::RED);
   delete sq;
 
-  sq = _sqg->getBox(_tree.back()->x, _tree.back()->y);
+  sq = _sqg->getBox(refHead->x, refHead->y);
   boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::BLUE);
   delete sq;
 }

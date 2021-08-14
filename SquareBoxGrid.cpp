@@ -56,6 +56,18 @@ Square* SquareBoxGrid::getBox(int x, int y){
   return new Square(x1, y1, x1+boxSize, y1+boxSize);
 }
 
+SDL_Rect SquareBoxGrid::getRect(int x, int y) const{
+  if(x>_a || y>_b){
+    printf("Invalid box, outside bounds\n");
+    SDL_Rect r = {0, 0, boxSize, boxSize};
+    return r;
+  }
+  int x1 = x*boxSize;
+  int y1 = y*boxSize;
+  SDL_Rect r = {x1, y1, boxSize, boxSize};
+  return r;
+}
+
 SquareBoxGrid::~SquareBoxGrid(){
 
 }

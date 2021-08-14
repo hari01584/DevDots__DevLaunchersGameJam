@@ -128,10 +128,14 @@ void Menu::gameloop(float step){
 }
 
 void Menu::eventHandler(const SDL_Event &event){
-  playGame();
-  b1.processEvent(&event);
+  // playGame();
+  // b1.processEvent(&event);
   b2.processEvent(&event);
   b3.processEvent(&event);
+
+  if(b1.processEventGetClicked(&event)){
+    setScreen(SCENE_::INGAME);
+  }
 }
 
 Menu::~Menu(){

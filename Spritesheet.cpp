@@ -13,7 +13,7 @@ Spritesheet::Spritesheet(char const* path, int row, int column)
 {
     m_spritesheet_image = IMG_Load(path);
     if(m_spritesheet_image == NULL){
-        SDL_Log("Failed to set normal image");
+        SDL_Log("Failed to set normal image %s, Error: %s", path, SDL_GetError());
     }
     // m_clip.x = -1; //Force initialization : useful in android devices
     m_clip.w = m_spritesheet_image->w / column;

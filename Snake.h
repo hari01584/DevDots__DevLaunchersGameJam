@@ -20,6 +20,9 @@ public:
   void removeLastSnakeDatum();
   void renderSnake(SDL_Renderer * renderer);
   void processEvent(const SDL_Event *e);
+
+  SnakeDatum* getSnakePointer();
+
   void GameOver();
 };
 
