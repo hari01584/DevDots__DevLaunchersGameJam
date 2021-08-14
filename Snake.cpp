@@ -64,6 +64,9 @@ Snake::Snake(SquareBoxGrid *sqg){
   _a = sx;
   _b = sy;
   initSnakeDatum(sx/2, sy/2);
+
+  snakeAtomic = new Spritesheet(IMAGE_SNAKE_BODY_ATOMIC, 1, 1);
+  snakeAtomic->select_sprite(0, 0);
 }
 
 Snake::~Snake(){
@@ -72,21 +75,22 @@ Snake::~Snake(){
       if(temp) delete temp;
       _tree.pop();
   }
+  if(snakeAtomic) delete snakeAtomic;
   // if(_sqg) delete _sqg; #Double Delete
 
   if(std) delete std;
 }
 
-void Snake::renderSnake(SDL_Renderer * renderer){
+void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
   SnakeDatum* refHead = _tree.back();
 
   std::queue<SnakeDatum*> g = _tree;
   while (!g.empty()) {
       SnakeDatum* temp = g.front();
       if(temp->x == refHead->x && temp->y == refHead->y && temp!=refHead) GameOver();
-      Square* sq = _sqg->getBox(temp->x, temp->y);
-      rectangleColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::BLACK);
-      delete sq;
+      SDL_Rect sq = _sqg->getRect(temp->x, temp->y);
+      // rectangleColor(renderer, sq.x, sq.y, sq.x+sq.w, sq.y+sq.h, ColorPalette::BLACK);
+      snakeAtomic->draw_selected_sprite(sf, &sq);
       g.pop();
   }
 

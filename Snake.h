@@ -9,7 +9,7 @@ class Snake{
   SquareBoxGrid * _sqg;
   std::queue<SnakeDatum*> _tree;
   SnakeDirection *std;
-
+  Spritesheet* snakeAtomic;
 public:
   Snake(SquareBoxGrid *sqg);
   ~Snake();
@@ -18,7 +18,7 @@ public:
   void addSnakeDatumOnDirect();
   void shiftSnakeDirec(int *x, int *y);
   void removeLastSnakeDatum();
-  void renderSnake(SDL_Renderer * renderer);
+  void renderSnake(SDL_Renderer * renderer, SDL_Surface *sf);
   void processEvent(const SDL_Event *e);
 
   SnakeDatum* getSnakePointer();

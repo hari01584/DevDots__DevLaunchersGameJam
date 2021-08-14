@@ -135,7 +135,7 @@ void Menu::eventHandler(const SDL_Event &event){
   if(b1.processEventGetClicked(&event)){
     setScreen(SCENE_::INGAME);
   }
-  
+
   playGame();
 
 }
