@@ -126,6 +126,7 @@ var Module = typeof Module !== 'undefined' ? Module : {};
       }
   Module['FS_createPath']("/", "assets", true, true);
 Module['FS_createPath']("/assets", "snake", true, true);
+Module['FS_createPath']("/", "sounds", true, true);
 
           /** @constructor */
           function DataRequest(start, end, audio) {
@@ -198,7 +199,7 @@ Module['FS_createPath']("/assets", "snake", true, true);
     }
   
    }
-   loadPackage({"files": [{"filename": "/assets/devnakes.png", "start": 0, "end": 18472, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png", "start": 18472, "end": 23051, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png~", "start": 23051, "end": 27610, "audio": 0}, {"filename": "/assets/img_cred.png", "start": 27610, "end": 32781, "audio": 0}, {"filename": "/assets/img_cred_bg.png", "start": 32781, "end": 34855, "audio": 0}, {"filename": "/assets/img_howto.png", "start": 34855, "end": 38594, "audio": 0}, {"filename": "/assets/img_howto_bg.png", "start": 38594, "end": 40646, "audio": 0}, {"filename": "/assets/img_play.png", "start": 40646, "end": 43753, "audio": 0}, {"filename": "/assets/img_play_bg.png", "start": 43753, "end": 45967, "audio": 0}, {"filename": "/assets/snake/basic_test.png", "start": 45967, "end": 161061, "audio": 0}], "remote_package_size": 161061, "package_uuid": "50338310-b428-42fb-a3b0-6afcd9e86ec5"});
+   loadPackage({"files": [{"filename": "/assets/devnakes.png", "start": 0, "end": 18472, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png", "start": 18472, "end": 23051, "audio": 0}, {"filename": "/assets/img_back_btn_bg.png~", "start": 23051, "end": 27610, "audio": 0}, {"filename": "/assets/img_cred.png", "start": 27610, "end": 32781, "audio": 0}, {"filename": "/assets/img_cred_bg.png", "start": 32781, "end": 34855, "audio": 0}, {"filename": "/assets/img_howto.png", "start": 34855, "end": 38594, "audio": 0}, {"filename": "/assets/img_howto_bg.png", "start": 38594, "end": 40646, "audio": 0}, {"filename": "/assets/img_play.png", "start": 40646, "end": 43753, "audio": 0}, {"filename": "/assets/img_play_bg.png", "start": 43753, "end": 45967, "audio": 0}, {"filename": "/assets/snake/basic_test.png", "start": 45967, "end": 161061, "audio": 0}, {"filename": "/sounds/sound_game_background.wav", "start": 161061, "end": 4543023, "audio": 1}], "remote_package_size": 4543023, "package_uuid": "09b68aa7-668c-44aa-825f-2d56c7353e94"});
   
   })();
   
