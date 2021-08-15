@@ -48,6 +48,10 @@ void Snake::addSnakeDatumOnDirect(){
   shiftSnakeDirec(&ix, &iy);
   //delete _head;
 
+  SnakeDirection d = _head->direction;
+  if(d != *std){
+    _head->extraPrev = *std;
+  }
   _tree.push(new SnakeDatum(ix, iy, *std));
   // this->removeLastSnakeDatum();
 }
@@ -68,11 +72,13 @@ Snake::Snake(SquareBoxGrid *sqg, SDL_Renderer * renderer){
   //
   // snakeAtomic = new Spritesheet(IMAGE_SN_BODY, 1, 1);
   // snakeAtomic->select_sprite(0, 0);
-  SDL_Surface* loadedSurface = IMG_Load(IMAGE_SN_FULL);
-  bodyTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-
-  if(loadedSurface) SDL_FreeSurface(loadedSurface);
-
+  // SDL_Surface* loadedSurface = IMG_Load(IMAGE_SN_FULL);
+  // bodyTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+  //
+  // if(loadedSurface) SDL_FreeSurface(loadedSurface);
+  bodyTexture = new TextureSheet(IMAGE_SN_FULL, renderer, 3, 3);
+  // Init Boundaries
+  // bodySimple = {95, 85, };
 }
 
 Snake::~Snake(){
@@ -83,8 +89,47 @@ Snake::~Snake(){
   }
   if(snakeAtomic) delete snakeAtomic;
   // if(_sqg) delete _sqg; #Double Delete
-  if(bodyTexture) SDL_DestroyTexture(bodyTexture);
+  if(bodyTexture) delete bodyTexture;
   if(std) delete std;
+}
+
+void Snake::_tertiarySnakeSelector(SnakeDirection next, SnakeDirection now){
+  if(next==SnakeDirection::RIGHT){
+    if(now==SnakeDirection::UP){
+      bodyTexture->select(1,2);
+    } else if(now==SnakeDirection::DOWN){
+      bodyTexture->select(2,2);
+    }
+  }
+  else if(next==SnakeDirection::LEFT){
+    if(now==SnakeDirection::UP){
+      bodyTexture->select(1,3);
+    } else if(now==SnakeDirection::DOWN){
+      bodyTexture->select(2,3);
+    }
+  }
+  else if(next==SnakeDirection::UP){
+    if(now==SnakeDirection::LEFT){
+      bodyTexture->select(2,2);
+    } else if(now==SnakeDirection::RIGHT){
+      bodyTexture->select(2,3);
+    }
+  }
+  else if(next==SnakeDirection::DOWN){
+    if(now==SnakeDirection::LEFT){
+      bodyTexture->select(1,2);
+    } else if(now==SnakeDirection::RIGHT){
+      bodyTexture->select(1,3);
+    }
+  }
+}
+
+int Snake::_primarySnakeSelector(SnakeDirection now){
+  if(now == SnakeDirection::UP) return 180;
+  if(now == SnakeDirection::DOWN) return 0;
+  if(now == SnakeDirection::LEFT) return 90;
+  if(now == SnakeDirection::RIGHT) return 270;
+  return 0;
 }
 
 void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
@@ -99,22 +144,41 @@ void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
       // rectangleColor(renderer, sq.x, sq.y, sq.x+sq.w, sq.y+sq.h, ColorPalette::BLACK);
       // filledCircleColor(renderer, sq.x + sq.w/2, sq.y + sq.w/2, r,ColorPalette::BLUE);
       // snakeAtomic->draw_selected_sprite(sf, &sq);
+      SnakeDirection ps = temp->extraPrev;
       SnakeDirection s = temp->direction;
-      int angle = 0;
-      if(s == SnakeDirection::UP || s == SnakeDirection::DOWN) angle = 90;
-      SDL_RenderCopyEx(renderer, bodyTexture, &bodySimple, &sq, angle, NULL, SDL_FLIP_NONE);
+      int angle = 90;
 
+      if(ps == SnakeDirection::NONE){
+        if(s == SnakeDirection::UP || s == SnakeDirection::DOWN) angle += 90;
+
+        bodyTexture->select(3,3);
+        bodyTexture->renderTextureEx(renderer, &sq, angle, NULL, SDL_FLIP_NONE);
+      }
+      else{
+        _tertiarySnakeSelector(ps, s);
+        bodyTexture->renderTexture(renderer, &sq);
+      }
       g.pop();
   }
 
-  // Debag
-  // Square* sq = _sqg->getBox(_tree.front()->x, _tree.front()->y);
-  // boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::RED);
-  // delete sq;
+  SnakeDatum * tail = _tree.front();
+
+  // Square* sq2 = _sqg->getBox(tail->x, tail->y);
+  // boxColor(renderer, sq2->x1, sq2->y1, sq2->x2, sq2->y2, ColorPalette::WHITE);
+  // delete sq2;
+  // SnakeDirection sd2 = tail->direction;
+  // SDL_Rect sqz2 = _sqg->getRect(tail->x, tail->y);
+  // bodyTexture->select(3,2);
+  // bodyTexture->renderTextureEx(renderer, &sqz2, _primarySnakeSelector(sd2) + 180, NULL, SDL_FLIP_NONE);
+
 
   Square* sq = _sqg->getBox(refHead->x, refHead->y);
-  boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::BLUE);
+  boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::WHITE);
   delete sq;
+  SDL_Rect sqz = _sqg->getRect(refHead->x, refHead->y);
+  SnakeDirection sd = refHead->direction;
+  bodyTexture->select(3,1);
+  bodyTexture->renderTextureEx(renderer, &sqz, _primarySnakeSelector(sd), NULL, SDL_FLIP_NONE);
 }
 
 void Snake::processEvent(const SDL_Event *e){

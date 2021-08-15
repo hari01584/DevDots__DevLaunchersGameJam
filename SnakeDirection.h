@@ -2,6 +2,6 @@
 #define SNAKEDIRECTION_H
 
 
-enum SnakeDirection { UP, DOWN, LEFT, RIGHT };
+enum SnakeDirection { NONE, UP, DOWN, LEFT, RIGHT };
 
 #endif

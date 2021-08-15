@@ -3,6 +3,7 @@
 #include <queue>
 #include "SnakeDatum.h"
 #include "SnakeDirection.h"
+#include "TextureSheet.cpp"
 
 class Snake{
   int _a, _b;
@@ -10,7 +11,7 @@ class Snake{
   std::queue<SnakeDatum*> _tree;
   SnakeDirection *std;
   Spritesheet* snakeAtomic = NULL;
-  SDL_Texture *bodyTexture = NULL;
+  TextureSheet *bodyTexture = NULL;
   SDL_Rect bodySimple;
 public:
   Snake(SquareBoxGrid *sqg, SDL_Renderer * renderer);
@@ -22,6 +23,9 @@ public:
   void removeLastSnakeDatum();
   void renderSnake(SDL_Renderer * renderer, SDL_Surface *sf);
   void processEvent(const SDL_Event *e);
+
+  void _tertiarySnakeSelector(SnakeDirection next, SnakeDirection now);
+  int _primarySnakeSelector(SnakeDirection now);
 
   SnakeDatum* getSnakePointer();
 
