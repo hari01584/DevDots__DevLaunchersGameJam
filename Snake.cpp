@@ -132,13 +132,18 @@ int Snake::_primarySnakeSelector(SnakeDirection now){
   return 0;
 }
 
-void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
+void Snake::renderSnake(SDL_Renderer * renderer){
   SnakeDatum* refHead = _tree.back();
 
   std::queue<SnakeDatum*> g = _tree;
   int r = _sqg->boxSize / 2 - 1;
   while (!g.empty()) {
       SnakeDatum* temp = g.front();
+      if(temp == refHead){
+        g.pop();
+        continue;
+      }
+
       if(temp->x == refHead->x && temp->y == refHead->y && temp!=refHead) GameOver();
       SDL_Rect sq = _sqg->getRect(temp->x, temp->y);
       // rectangleColor(renderer, sq.x, sq.y, sq.x+sq.w, sq.y+sq.h, ColorPalette::BLACK);
@@ -172,9 +177,9 @@ void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
   // bodyTexture->renderTextureEx(renderer, &sqz2, _primarySnakeSelector(sd2) + 180, NULL, SDL_FLIP_NONE);
 
 
-  Square* sq = _sqg->getBox(refHead->x, refHead->y);
-  boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::WHITE);
-  delete sq;
+  // Square* sq = _sqg->getBox(refHead->x, refHead->y);
+  // boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::WHITE);
+  // delete sq;
   SDL_Rect sqz = _sqg->getRect(refHead->x, refHead->y);
   SnakeDirection sd = refHead->direction;
   bodyTexture->select(3,1);

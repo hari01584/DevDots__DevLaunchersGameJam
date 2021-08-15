@@ -77,14 +77,13 @@ void Game::gameloop(float step){
   beans->beansRender(tempSurface);
   backbutton.renderButton(tempSurface);
 
-  snake->renderSnake(renderer, tempSurface);
-
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
   SDL_FreeSurface(tempSurface);
   SDL_DestroyTexture(texture);
 
   //helpergrid->renderHelperRects(renderer);
+  snake->renderSnake(renderer);
 
   scores.dynamicRender(renderer, std::to_string(scoreAmt).c_str());
 

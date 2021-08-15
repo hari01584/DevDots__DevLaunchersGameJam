@@ -21,7 +21,7 @@ public:
   void addSnakeDatumOnDirect();
   void shiftSnakeDirec(int *x, int *y);
   void removeLastSnakeDatum();
-  void renderSnake(SDL_Renderer * renderer, SDL_Surface *sf);
+  void renderSnake(SDL_Renderer * renderer);
   void processEvent(const SDL_Event *e);
 
   void _tertiarySnakeSelector(SnakeDirection next, SnakeDirection now);
