@@ -7,6 +7,8 @@ static const int HEIGHT = 480;
 static const char* SOUND_GAME_BACKGROUND = "./sounds/sound_game_background.wav";
 static const char* SOUND_BTN_CLICK = "./sounds/sound_click.wav";
 static const char* SOUND_BITE = "./sounds/sound_bite.wav";
+static const char* SOUND_GAME_HYPE = "./sounds/hype_game.wav";
+static const char* SOUND_SNAKE_DIE = "./sounds/snake_die.wav";
 
 // Font
 static const char* FONT_TEXT_PATH = "./assets/Roboto-Medium.ttf";

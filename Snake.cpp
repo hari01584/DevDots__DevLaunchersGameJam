@@ -38,7 +38,7 @@ SnakeDatum* Snake::getSnakePointer(){
 }
 
 void Snake::GameOver(){
-  printf("Game over mf\n");
+  setScreen(SCENE_::GAMEOVER);
 }
 
 void Snake::addSnakeDatumOnDirect(){
@@ -69,16 +69,9 @@ Snake::Snake(SquareBoxGrid *sqg, SDL_Renderer * renderer){
   _a = sx;
   _b = sy;
   initSnakeDatum(sx/2, sy/2);
-  //
-  // snakeAtomic = new Spritesheet(IMAGE_SN_BODY, 1, 1);
-  // snakeAtomic->select_sprite(0, 0);
-  // SDL_Surface* loadedSurface = IMG_Load(IMAGE_SN_FULL);
-  // bodyTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-  //
-  // if(loadedSurface) SDL_FreeSurface(loadedSurface);
+
   bodyTexture = new TextureSheet(IMAGE_SN_FULL, renderer, 3, 3);
-  // Init Boundaries
-  // bodySimple = {95, 85, };
+
 }
 
 Snake::~Snake(){
@@ -132,7 +125,7 @@ int Snake::_primarySnakeSelector(SnakeDirection now){
   return 0;
 }
 
-void Snake::renderSnake(SDL_Renderer * renderer){
+bool Snake::renderSnake(SDL_Renderer * renderer){
   SnakeDatum* refHead = _tree.back();
 
   std::queue<SnakeDatum*> g = _tree;
@@ -144,7 +137,10 @@ void Snake::renderSnake(SDL_Renderer * renderer){
         continue;
       }
 
-      if(temp->x == refHead->x && temp->y == refHead->y && temp!=refHead) GameOver();
+      if(temp->x == refHead->x && temp->y == refHead->y && temp!=refHead){
+        GameOver();
+        return true;
+      };
       SDL_Rect sq = _sqg->getRect(temp->x, temp->y);
       // rectangleColor(renderer, sq.x, sq.y, sq.x+sq.w, sq.y+sq.h, ColorPalette::BLACK);
       // filledCircleColor(renderer, sq.x + sq.w/2, sq.y + sq.w/2, r,ColorPalette::BLUE);
@@ -184,6 +180,8 @@ void Snake::renderSnake(SDL_Renderer * renderer){
   SnakeDirection sd = refHead->direction;
   bodyTexture->select(3,1);
   bodyTexture->renderTextureEx(renderer, &sqz, _primarySnakeSelector(sd), NULL, SDL_FLIP_NONE);
+
+  return false;
 }
 
 void Snake::processEvent(const SDL_Event *e){

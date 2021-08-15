@@ -8,6 +8,7 @@ class SoundBox{
   Mix_Music *music;
   Mix_Chunk *sound;
 public:
+  SoundBox();
   SoundBox(const char* path, bool isMusic = true);
   void play();
   void pause();

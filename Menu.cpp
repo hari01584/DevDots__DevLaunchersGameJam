@@ -35,7 +35,6 @@ SoundBox *backgroundMusic;
 SoundBox *btnClickEffect;
 
 void playGame(){
-  printf("Change to play game\n");
   setScreen(SCENE_::INGAME);
 }
 
@@ -54,7 +53,6 @@ void selfCreds(){
   s+="You dont have to tell me, yes im shameless to add my name in this work, even though it is just for a gamejam! but say all you want but this is what i like hehhehehe! Anyways, this game is made solely by Agent_Orange#9852(Discord Tag), be sure to friend them and drop a hello if you like it! My motive was to make a game not just for gamejam purposes, but also ingeneral, so my fellow discordians would enjoy it beyond the scope of being used as gamejam submission!\n";
 
   utils::alert(s);
-
 }
 
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
@@ -144,7 +142,7 @@ void Menu::eventHandler(const SDL_Event &event){
     setScreen(SCENE_::INGAME);
   }
 
-  playGame();
+  // playGame();
 
 }
 

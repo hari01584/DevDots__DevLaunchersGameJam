@@ -22,6 +22,7 @@ TTF_Font * font;
 Text scores;
 static int scoreAmt;
 
+SoundBox *bgMusic;
 SoundBox *eatEffect;
 
 Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, renderer){
@@ -49,6 +50,8 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
   scoreAmt = 0;
   scores = Text(renderer, font, scoreStr, color, dstrect);
 
+  bgMusic = new SoundBox(SOUND_GAME_HYPE);
+  bgMusic->play();
   eatEffect = new SoundBox(SOUND_BITE, false);
 }
 
@@ -83,9 +86,11 @@ void Game::gameloop(float step){
   SDL_DestroyTexture(texture);
 
   //helpergrid->renderHelperRects(renderer);
-  snake->renderSnake(renderer);
-
   scores.dynamicRender(renderer, std::to_string(scoreAmt).c_str());
+
+  if(snake->renderSnake(renderer)){
+    return;
+  }
 
   SDL_RenderPresent(renderer);
 }
@@ -95,19 +100,19 @@ void Game::eventHandler(const SDL_Event &event){
 
   //backbutton.processEvent(&event);
   if(backbutton.processEventGetClicked(&event)){
-    printf("Cleeecked\n");
     setScreen(SCENE_::MAIN);
   }
 
 }
 
 Game::~Game(){
+  bgMusic->stop();
   if(backsp) delete backsp;
   if(snake) delete snake;
   if(helpergrid) delete helpergrid;
+  if(bgMusic) delete bgMusic;
   if(eatEffect) delete eatEffect;
   if(beans) delete beans;
-  scoreAmt = 0;
   TTF_CloseFont(font);
 }
 

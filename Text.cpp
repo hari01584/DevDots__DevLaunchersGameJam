@@ -2,6 +2,9 @@
 // Created by hari0 on 21-04-2021.
 //
 
+#ifndef ANDROID_PROJECT_TEXT_CPP
+#define ANDROID_PROJECT_TEXT_CPP
+
 #include "Text.h"
 
 Text::Text(){
@@ -38,7 +41,6 @@ Text::Text(SDL_Renderer* renderer,TTF_Font* font, std::string text, SDL_Color te
 
 
 void Text::renderText(SDL_Renderer* renderer){
-
     SDL_RenderCopy(renderer, tempTexture, NULL, &rect);
 }
 
@@ -55,10 +57,7 @@ void Text::dynamicRender(SDL_Renderer* renderer, const char* c){
 
     int w,h;
     TTF_SizeText(font, c, &w, &h);
-
     rect.w = w * rect.h/h;
-    //rect.x -= rect.h/h;
-
     SDL_RenderCopy(renderer, tempTexture, NULL, &rect);
     SDL_FreeSurface(surfaceMessage);
 }
@@ -69,3 +68,5 @@ void Text::processEvent(SDL_Event* event){
 
 
 }
+
+#endif

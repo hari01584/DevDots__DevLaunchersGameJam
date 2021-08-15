@@ -7,6 +7,7 @@
 #include "Menu.cpp"
 #include "Game.cpp"
 #include "entry.h"
+#include "GameOver.cpp"
 #include <SDL_ttf.h>
 
 SDL_Window *window;
@@ -21,6 +22,9 @@ static void setScreen(SCENE_ scene){
   }
   else if(scene == SCENE_::INGAME){
     current = new Game(window, renderer);
+  }
+  else if(scene == SCENE_::GAMEOVER){
+    current = new GameOver(window, renderer);
   }
 }
 
@@ -75,7 +79,7 @@ int main()
       printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
     }
 
-    current = new Game(window, renderer);
+    current = new Menu(window, renderer);
     currentTime = SDL_GetTicks();
     emscripten_set_main_loop(frame, 0, 1);
 
@@ -84,6 +88,5 @@ int main()
     Mix_Quit();
     SDL_Quit();
     TTF_Quit();
-
     printf("Yes? \n");
 }

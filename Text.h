@@ -10,6 +10,9 @@
 #include "consts.h"
 #include <string>
 
+#include "SDL.h"
+#include "SDL_TTF.h"
+
 class Text {
     TTF_Font * font;
     std::string text;

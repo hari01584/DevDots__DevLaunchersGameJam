@@ -32,7 +32,6 @@ void SoundBox::play(){
     }
   }
   else{
-    printf("Letts\n");
     Mix_PlayChannel( -1, sound, 0 );
   }
 }

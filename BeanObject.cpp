@@ -42,8 +42,9 @@ BType BeanObject::beansBuilderGetCollison(SnakeDatum *head){
     int sx = itm.x;
     int sy = itm.y;
     if(sx == head->x && sy == head->y){
+      BType b = itm.beanType;
       _replaceBean(&itm);
-      return itm.beanType;
+      return b;
     }
   }
   return BType::NONE;
