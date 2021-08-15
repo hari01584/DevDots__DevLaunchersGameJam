@@ -14,6 +14,7 @@ static const char* FONT_TEXT_PATH = "./assets/Roboto-Medium.ttf";
 static const char* IMAGE_BEANS = "./assets/img_beans_soft.png";
 static const char* IMAGE_SNAKE_BODY_ATOMIC = "./assets/snake/atomic.png";
 static const char* IMAGE_SN_BODY = "./assets/snake/snbody.png";
+static const char* IMAGE_SN_FULL = "./assets/snake/snake_full.png";
 
 static const char* TITLE_PATH = "./assets/devnakes.png";
 

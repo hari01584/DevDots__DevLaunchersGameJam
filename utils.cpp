@@ -50,14 +50,16 @@ namespace utils{
     emscripten_run_script(sc.c_str());
   }
 
-  SDL_Surface* loadSurface(std::string path){
+  SDL_Texture* loadTexture(std::string path, SDL_Renderer * renderer){
       SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
       if( loadedSurface == NULL )
       {
           printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
       }
+      SDL_Texture* bodyTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+      if(loadedSurface) SDL_FreeSurface(loadedSurface);
 
-      return loadedSurface;
+      return bodyTexture;
   }
 }
 

@@ -68,7 +68,7 @@ Snake::Snake(SquareBoxGrid *sqg, SDL_Renderer * renderer){
   //
   // snakeAtomic = new Spritesheet(IMAGE_SN_BODY, 1, 1);
   // snakeAtomic->select_sprite(0, 0);
-  SDL_Surface* loadedSurface = IMG_Load(IMAGE_SN_BODY);
+  SDL_Surface* loadedSurface = IMG_Load(IMAGE_SN_FULL);
   bodyTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 
   if(loadedSurface) SDL_FreeSurface(loadedSurface);
@@ -102,7 +102,7 @@ void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
       SnakeDirection s = temp->direction;
       int angle = 0;
       if(s == SnakeDirection::UP || s == SnakeDirection::DOWN) angle = 90;
-      SDL_RenderCopyEx(renderer, bodyTexture, NULL, &sq, angle, NULL, SDL_FLIP_NONE);
+      SDL_RenderCopyEx(renderer, bodyTexture, &bodySimple, &sq, angle, NULL, SDL_FLIP_NONE);
 
       g.pop();
   }
