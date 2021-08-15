@@ -57,7 +57,7 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
 
 void Game::gameloop(float step){
   counter+=step;
-  if(counter>0.25){
+  if(counter>0.35){
     snake->addSnakeDatumOnDirect();
     BType b;
     if((b = beans->beansBuilderGetCollison(snake->getSnakePointer()))==BType::NONE){
