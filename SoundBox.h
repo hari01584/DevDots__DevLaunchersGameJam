@@ -4,10 +4,11 @@
 #include "SDL_Mixer.h"
 
 class SoundBox{
+  bool isMusic;
   Mix_Music *music;
-
+  Mix_Chunk *sound;
 public:
-  SoundBox(const char* path);
+  SoundBox(const char* path, bool isMusic = true);
   void play();
   void pause();
   void resume();

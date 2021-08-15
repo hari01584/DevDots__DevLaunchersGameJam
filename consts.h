@@ -5,12 +5,15 @@ static const int WIDTH = 640;
 static const int HEIGHT = 480;
 
 static const char* SOUND_GAME_BACKGROUND = "./sounds/sound_game_background.wav";
+static const char* SOUND_BTN_CLICK = "./sounds/sound_click.wav";
+static const char* SOUND_BITE = "./sounds/sound_bite.wav";
 
 // Font
 static const char* FONT_TEXT_PATH = "./assets/Roboto-Medium.ttf";
 
 static const char* IMAGE_BEANS = "./assets/img_beans_soft.png";
 static const char* IMAGE_SNAKE_BODY_ATOMIC = "./assets/snake/atomic.png";
+static const char* IMAGE_SN_BODY = "./assets/snake/snbody.png";
 
 static const char* TITLE_PATH = "./assets/devnakes.png";
 

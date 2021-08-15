@@ -17,6 +17,7 @@
 #include "SCENE_.h"
 #include "StarShape.cpp"
 #include "SoundBox.h"
+#include <string>
 
 #include "SDL_Mixer.h"
 
@@ -30,7 +31,8 @@ Button b1;
 Button b2;
 Button b3;
 
-// SoundBox *backgroundMusic;
+SoundBox *backgroundMusic;
+SoundBox *btnClickEffect;
 
 void playGame(){
   printf("Change to play game\n");
@@ -38,23 +40,29 @@ void playGame(){
 }
 
 void showHowToPlay(){
-  emscripten_run_script("alert('How to play?')");
+  std::string s = "";
+  s += "\nHow to play?\n";
+  s += "You asked the right person, so basically this game is about a coding snake (or nerd snake) which eats devbeans or normal beans to get his coding energy! But there's a problem, everytime he consume it, he increase in size! and if accidentally he bit himself then he will die! *Your objective is to get maximum number of beans and devbeans to help our little companion in his coding journey!!*\n";
+  s += "\nLong story short, this is classic snake-eat-stuff type of game where you have to get max points and somehow avoid the snake biting his own tail! Now you got it, enjoy playing! :D\n";
 
-  printf("\nHow to play?\n");
-  printf("You asked the right person, so basically this game is about a coding snake (or nerd snake) which eats devbeans or normal beans to get his coding energy! But there's a problem, everytime he consume it, he increase in size! and if accidentally he bit himself then he will die! *Your objective is to get maximum number of beans and devbeans to help our little companion in his coding journey!!*\n");
-  printf("\nLong story short, this is classic snake-eat-stuff type of game where you have to get max points and somehow avoid the snake biting his own tail! Now you got it, enjoy playing! :D\n");
+  utils::alert(s);
 }
 
 void selfCreds(){
-  printf("\nSelf Credits :P!\n");
-  printf("You dont have to tell me, yes im shameless to add my name in this work, even though it is just for a gamejam! but say all you want but this is what i like hehhehehe! Anyways, this game is made solely by Agent_Orange#9852(Discord Tag), be sure to friend them and drop a hello if you like it! My motive was to make a game not just for gamejam purposes, but also ingeneral, so my fellow discordians would enjoy it beyond the scope of being used as gamejam submission!\n");
+  std::string s = "";
+  s+="\nSelf Credits :P!\n";
+  s+="You dont have to tell me, yes im shameless to add my name in this work, even though it is just for a gamejam! but say all you want but this is what i like hehhehehe! Anyways, this game is made solely by Agent_Orange#9852(Discord Tag), be sure to friend them and drop a hello if you like it! My motive was to make a game not just for gamejam purposes, but also ingeneral, so my fellow discordians would enjoy it beyond the scope of being used as gamejam submission!\n";
+
+  utils::alert(s);
+
 }
 
 Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, renderer){
   printf("Menu Welcomes You!\n");
 
-  // backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
-  // backgroundMusic->play();
+  backgroundMusic = new SoundBox(SOUND_GAME_BACKGROUND);
+  backgroundMusic->play();
+
 
   SDL_Surface * sur = IMG_Load(TITLE_PATH);
   if(sur!=NULL){
@@ -94,7 +102,7 @@ Menu::Menu(SDL_Window *window, SDL_Renderer *renderer) : SceneLayout(window, ren
   int h = 70;
   SDL_Rect dstrect = {(WIDTH - w)/2,int((HEIGHT - h)*0.56666),w,h};
 
-  b1 = Button(play, dstrect, playGame);
+  b1 = Button(play, dstrect, NULL);
 
   dstrect.y += h + 8;
   b2 = Button(howtop, dstrect, showHowToPlay);
@@ -151,7 +159,8 @@ Menu::~Menu(){
   if(howtop) delete howtop;
   if(creds) delete creds;
 
-  // if(backgroundMusic) delete backgroundMusic;
+  if(backgroundMusic) delete backgroundMusic;
+  if(btnClickEffect) delete btnClickEffect;
 }
 
 #endif

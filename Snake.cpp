@@ -6,6 +6,7 @@
 #include "utils.cpp"
 #include "ColorPalette.h"
 #include "SDL.h"
+#include "SDL_Image.h"
 #include "SDL2_gfxPrimitives.h"
 
 void Snake::initSnakeDatum(int x, int y){
@@ -56,7 +57,7 @@ void Snake::removeLastSnakeDatum(){
   _tree.pop();
 }
 
-Snake::Snake(SquareBoxGrid *sqg){
+Snake::Snake(SquareBoxGrid *sqg, SDL_Renderer * renderer){
   this->_sqg = sqg;
 
   int sx, sy;
@@ -64,9 +65,14 @@ Snake::Snake(SquareBoxGrid *sqg){
   _a = sx;
   _b = sy;
   initSnakeDatum(sx/2, sy/2);
+  //
+  // snakeAtomic = new Spritesheet(IMAGE_SN_BODY, 1, 1);
+  // snakeAtomic->select_sprite(0, 0);
+  SDL_Surface* loadedSurface = IMG_Load(IMAGE_SN_BODY);
+  bodyTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 
-  snakeAtomic = new Spritesheet(IMAGE_SNAKE_BODY_ATOMIC, 1, 1);
-  snakeAtomic->select_sprite(0, 0);
+  if(loadedSurface) SDL_FreeSurface(loadedSurface);
+
 }
 
 Snake::~Snake(){
@@ -77,7 +83,7 @@ Snake::~Snake(){
   }
   if(snakeAtomic) delete snakeAtomic;
   // if(_sqg) delete _sqg; #Double Delete
-
+  if(bodyTexture) SDL_DestroyTexture(bodyTexture);
   if(std) delete std;
 }
 
@@ -85,21 +91,28 @@ void Snake::renderSnake(SDL_Renderer * renderer, SDL_Surface *sf){
   SnakeDatum* refHead = _tree.back();
 
   std::queue<SnakeDatum*> g = _tree;
+  int r = _sqg->boxSize / 2 - 1;
   while (!g.empty()) {
       SnakeDatum* temp = g.front();
       if(temp->x == refHead->x && temp->y == refHead->y && temp!=refHead) GameOver();
       SDL_Rect sq = _sqg->getRect(temp->x, temp->y);
       // rectangleColor(renderer, sq.x, sq.y, sq.x+sq.w, sq.y+sq.h, ColorPalette::BLACK);
-      snakeAtomic->draw_selected_sprite(sf, &sq);
+      // filledCircleColor(renderer, sq.x + sq.w/2, sq.y + sq.w/2, r,ColorPalette::BLUE);
+      // snakeAtomic->draw_selected_sprite(sf, &sq);
+      SnakeDirection s = temp->direction;
+      int angle = 0;
+      if(s == SnakeDirection::UP || s == SnakeDirection::DOWN) angle = 90;
+      SDL_RenderCopyEx(renderer, bodyTexture, NULL, &sq, angle, NULL, SDL_FLIP_NONE);
+
       g.pop();
   }
 
   // Debag
-  Square* sq = _sqg->getBox(_tree.front()->x, _tree.front()->y);
-  boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::RED);
-  delete sq;
+  // Square* sq = _sqg->getBox(_tree.front()->x, _tree.front()->y);
+  // boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::RED);
+  // delete sq;
 
-  sq = _sqg->getBox(refHead->x, refHead->y);
+  Square* sq = _sqg->getBox(refHead->x, refHead->y);
   boxColor(renderer, sq->x1, sq->y1, sq->x2, sq->y2, ColorPalette::BLUE);
   delete sq;
 }

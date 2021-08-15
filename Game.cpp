@@ -22,6 +22,8 @@ TTF_Font * font;
 Text scores;
 static int scoreAmt;
 
+SoundBox *eatEffect;
+
 Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, renderer){
   SDL_SetRenderDrawColor(renderer, 255,255,255,255);
 
@@ -32,7 +34,7 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
   helpergrid = new SquareBoxGrid(WIDTH, HEIGHT, 40);
   helpergrid->getBoxDimen(&a, &b);
 
-  snake = new Snake(helpergrid);
+  snake = new Snake(helpergrid, renderer);
   snake->addSnakeDatumOnDirect();
   snake->addSnakeDatumOnDirect();
   counter = 0;
@@ -46,6 +48,8 @@ Game::Game(SDL_Window *window, SDL_Renderer *renderer):SceneLayout(window, rende
   std::string scoreStr = "0";
   scoreAmt = 0;
   scores = Text(renderer, font, scoreStr, color, dstrect);
+
+  eatEffect = new SoundBox(SOUND_BITE, false);
 }
 
 void Game::gameloop(float step){
@@ -57,9 +61,11 @@ void Game::gameloop(float step){
       snake->removeLastSnakeDatum();
     }
     else if(b == BType::NORMAL){
+      eatEffect->play();
       scoreAmt += 1;
     }
     else if(b == BType::GOLDEN){
+      eatEffect->play();
       scoreAmt += 2;
     }
     counter = 0;
@@ -100,6 +106,8 @@ Game::~Game(){
   if(backsp) delete backsp;
   if(snake) delete snake;
   if(helpergrid) delete helpergrid;
+  if(eatEffect) delete eatEffect;
+  if(beans) delete beans;
   scoreAmt = 0;
   TTF_CloseFont(font);
 }

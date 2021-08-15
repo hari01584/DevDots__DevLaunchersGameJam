@@ -10,8 +10,9 @@ class Snake{
   std::queue<SnakeDatum*> _tree;
   SnakeDirection *std;
   Spritesheet* snakeAtomic;
+  SDL_Texture *bodyTexture;
 public:
-  Snake(SquareBoxGrid *sqg);
+  Snake(SquareBoxGrid *sqg, SDL_Renderer * renderer);
   ~Snake();
 
   void initSnakeDatum(int x, int y);
